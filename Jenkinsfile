@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
+        SEMGREP_PR_ID = "${env.CHANGE_ID}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -8,9 +13,10 @@ pipeline {
             }
         }
 
-        stage('No-op') {
+        stage('Semgrep-Scan') {
             steps {
-                echo 'Repo checked out.'
+                sh 'pip3 install semgrep'
+                sh 'semgrep ci'
             }
         }
     }
