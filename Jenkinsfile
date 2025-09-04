@@ -4,7 +4,6 @@ pipeline {
     environment {
         SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
         SEMGREP_PR_ID = "${env.CHANGE_ID}"
-        PATH = "/var/jenkins_home/.local/bin:${env.PATH}"
     }
 
     stages {
